@@ -6,13 +6,13 @@ variable "ssh_pubkey_file" {
   default     = "~/.ssh/id_rsa.pub"
 }
 variable asg_min {
-  default = 2
+  default = 1
 }
 variable asg_max {
-  default = 4
+  default = 1
 }
 variable asg_desired {
-  default = 3
+  default = 1
 }
 variable "ENV" {
   default     = "NON-PROD"

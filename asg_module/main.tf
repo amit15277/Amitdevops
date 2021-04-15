@@ -9,12 +9,12 @@ resource "aws_autoscaling_group" "this" {
 }
 resource "aws_launch_configuration" "this" {
   name                        = "${var.name}-lc"
-  image_id                    = "ami-0a4a70bd98c6d6441"
+  image_id                    = "ami-00ddb0e5626798373"
   instance_type               = var.instance_type
   security_groups             = var.security_groups
   key_name                    = aws_key_pair.this.key_name
   associate_public_ip_address = true
-  user_data                   = "#!/bin/bash\nsudo apt install apache2 -y \n sudo service apache2 start"
+  #user_data                   = "#!/bin/bash\nsudo apt install apache2 -y \n sudo service apache2 start"
 }
 
 resource "aws_key_pair" "this" {
@@ -24,6 +24,14 @@ resource "aws_key_pair" "this" {
 resource "aws_autoscaling_attachment" "asg_attachment_bar" {
   autoscaling_group_name = aws_autoscaling_group.this.id
   alb_target_group_arn   = var.alb_arn
+}
+
+resource "aws_autoscaling_policy" "this" {
+  name                   = "${var.name}-asg-policy"
+  scaling_adjustment     = 4
+  adjustment_type        = "ChangeInCapacity"
+  cooldown               = 300
+  autoscaling_group_name = aws_autoscaling_group.this.name
 }
 
 resource "aws_cloudwatch_metric_alarm" "this" {
