@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+
+    options {
+        ansiColor('xterm')
+    }
+
+    stages {
+
+              
+
+        stage ('TF Destroy') {
+            steps {
+                sh "terraform destroy -auto-approve"
+            }
+        }
+
+        }
+
+}
