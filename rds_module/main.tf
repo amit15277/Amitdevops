@@ -21,5 +21,7 @@ resource "aws_db_subnet_group" "this" {
 
 }
 
-
+data "aws_ssm_parameter" "dummyref" {
+  name = "secretdemo"
+}
 
