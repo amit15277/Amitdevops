@@ -13,12 +13,7 @@ pipeline {
             }
         }
 
-        stage ('Building AWS AMI') {
-            steps {
-                sh "packer validate ./packer/template.json"
-                sh "packer build ./packer/template.json"
-            }
-        }
+        
 
         stage ('TF Initialize') {
             steps {
