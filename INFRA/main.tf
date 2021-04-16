@@ -68,9 +68,7 @@ module "sg" {
     vpc_id = module.vpc_module.vpc_id
     name   = "Demo-test"
 }
-data "aws_ssm_parameter" "dummyref" {
-  name = "secretdemo"
-}
+
 module "rds" {
   source = "../rds_module"
   name = "testdb"
