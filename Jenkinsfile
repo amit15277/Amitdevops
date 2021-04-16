@@ -30,9 +30,9 @@ pipeline {
         stage ('Plan') {
             steps {
                 script {
-                    
+                    sh "terraform workspace select demo || terraform workspace new demo"
                     env.CHANGES = sh (
-                        script: 'terraform plan -input=false -var-file=env.tfvars/dev-env.tfvars -detailed-exitcode',
+                        script: 'terraform plan -input=false -var-file=env.tfvars/demo-env.tfvars -detailed-exitcode',
                         returnStdout: false, returnStatus: true
                     )
                     if (env.CHANGES == '1') {
