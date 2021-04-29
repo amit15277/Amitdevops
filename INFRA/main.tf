@@ -127,17 +127,14 @@ resource "aws_instance" "Amit1" {
   }
  provisioner "remote-exec" {
     inline = [
-      "sudo yum upate -y",
-      "sudo yum install nginx",
-      "sudo systemctl start nginx",
-      "sudo systemctl enable nginx",
+      
     ]
 
  connection {
    host = self.public_ip
    type = "ssh"
    user = "ec2-user"
-   private_key = file("~/.ssh/AmitWin.pem")
+   private_key = file("/home/amit/AmitWin.pem")
   }
 }
 
