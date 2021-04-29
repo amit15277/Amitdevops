@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: Amit1
   become: yes
   become_method: sudo
   tasks:
