@@ -1,0 +1,23 @@
+---
+- hosts: nginx
+  tasks:
+    - name: Installs nginx web server
+      apt: pkg=nginx state=present update_cache=true
+      become: yes
+      become_method: sudo
+      notify:
+        - start nginx
+    - name: Copy nginx conf
+      become: yes
+      become_method: sudo
+      template:
+       src: nginx_default.j2
+       dest: /etc/nginx/sites-enabled/default
+      notify:
+        - start nginx
+
+  handlers:
+    - name: start nginx
+      become: yes
+      become_method: sudo
+      service: name=nginx state=restarted
