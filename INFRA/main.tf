@@ -122,7 +122,9 @@ resource "aws_instance" "Amit1" {
  subnet_id   = aws_subnet.my_subnet.id
  vpc_security_group_ids = [aws_security_group.all_http.id, aws_security_group.all_ssh.id]
  #depends_on = [module.vpc_module.internet_gw_id]
-
+ tags = {
+    Name = "Amit1"
+  }
  provisioner "remote-exec" {
     inline = [
       "sudo yum upate -y",
