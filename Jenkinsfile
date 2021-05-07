@@ -1,24 +1,11 @@
 pipeline {
     agent any
 
-    options {
-        ansiColor('xterm')
-    }
+    
 
     stages {
 
-        stage ('AWS infra pre-requisite deployment') {
-            steps {
-                sh "ansible-playbook ./ansible/playbooks/tf_backend_setup.yml"
-            }
-        }
-
-        stage ('Building AWS AMI') {
-            steps {
-                sh "packer validate ./packer/template.json"
-                sh "packer build ./packer/template.json"
-            }
-        }
+        
 
         stage ('TF Initialize') {
             steps {
