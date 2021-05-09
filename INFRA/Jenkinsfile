@@ -5,8 +5,9 @@ pipeline {
         ansiColor('xterm')
     }
 
-    
+    stages {
 
+        
         stage ('TF Initialize') {
             steps {
                 sh "terraform init -input=false"
