@@ -6,6 +6,12 @@ pipeline {
     }
 
     stages {
+        
+        stage ('AWS infra pre-requisite deployment') {
+            steps {
+                sh "ansible-playbook ./ansible/playbooks/tf_backend_setup.yml"
+            }
+        }
 
         
         stage ('TF Initialize') {
@@ -45,7 +51,7 @@ pipeline {
                 expression { env.CHANGES == '2' }
             }
             steps {
-                sh "terraform apply -auto-approve"
+                sh "terraform apply"
             }
         }
     }
