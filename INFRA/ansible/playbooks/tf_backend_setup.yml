@@ -1,0 +1,32 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    region: ap-south-1
+    state: present
+    bucket: cloudlogic20-tfstate
+
+  tasks:
+    - name: Create S3 bucket for storing TF remote states
+      s3_bucket:
+        name: "{{ bucket }}"
+        state: "{{ state }}"
+        region: "{{ region }}"
+        encryption: AES256
+        versioning: yes
+        tags:
+          Ansible_Managed: True
+
+    - name: Create DynamoDB table for locking remote TF state
+      dynamodb_table:
+        name: s3-state-lock
+        state: "{{ state }}"
+        region: "{{ region }}"
+        hash_key_name: LockID
+        hash_key_type: STRING
+        read_capacity: 2
+        write_capacity: 2
+        tags:
+          Ansible_Managed: True
