@@ -1,2 +1,0 @@
-# Amitdevops
-Terraform with AWS
